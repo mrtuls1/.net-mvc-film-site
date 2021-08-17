@@ -1,0 +1,38 @@
+﻿@model Film
+@{
+    ViewBag.Title = "Guncelle";
+}
+
+@using (Html.BeginForm("Ekle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card card-info">
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Kategori</label>
+                @Html.DropDownList("kategori", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Film</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Filmin Adı" name="ad" value="@Model.ad">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Özet</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Özeti" name="ozet" value="@Model.ozet">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Resim</label>
+                <input type="file" class="form-control" id="exampleInputEmail1" name="resim2">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Yeni Eklemek istemiyorsanız boş bırakın</label>
+                <img src="~/Content/Resim/Film/@Model.resim" width="50" />
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <button type="submit" class="btn btn-info">Kaydet</button>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,49 @@
+﻿@model List<Film>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="card">
+    <div class="card-header">
+
+        <table style="width:100%;">
+            <tr>
+                <td>  <h5 class="m-0">Filmler</h5>  </td>
+                <td style="text-align:right;">  <a href="/Home/EKLE" class="btn btn-sm btn-success">Ekle</a>  </td>
+            </tr>
+        </table>
+        <div class="card-body">
+           <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Film Adı</th>
+                        <th>Özet</th>
+                        <th>Kategori ID</th>
+                        <th style="width:100px;">Kullanıcı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var k in Model)
+                    {
+                        <tr>
+                            <td> <img src="~/Content/Resim/Film/@k.resim" style="width:50px" /> </td>
+                            <th>@k.ad</th>
+                            <th>@k.ozet</th>
+                            <th>@k.Kategori.ad</th>
+                            <th>@k.Kullanici.ad</th>
+                            <th>
+                                <a class="btn btn-info btn-sm" href="/Home/Guncelle/@k.filmID">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="/Home/Sil/@k.filmID" onclick="return confirm('Silmek istediğinizden emin misiniz?')">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>

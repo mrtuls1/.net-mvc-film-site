@@ -1,0 +1,114 @@
+﻿@model MvcVize.Models.Kullanici
+<!DOCTYPE html>
+
+@{
+    Layout = null;
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Şehir seçilince
+        $("#iller").change(function () {
+            $("#id").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("IlceGetir")', // İlçe metoduna git
+                dataType: 'json',
+                data: { id: $("#iller").val() },
+                // Sehir id'ye göre veri getir.
+
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#id").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Veri bulunamadı.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+
+
+<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Kayıt Olun</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        @if (ViewBag.hata != null)
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.hata
+                            </div>
+                        }
+                        @using (Html.BeginForm("Index", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+
+                            <h3 class="text-center text-info">Kayıt</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Ad:</label><br>
+                                <input type="text" name="ad" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Soyad:</label><br>
+                                <input type="text" name="soyad" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="text-info">E-Posta:</label><br>
+                                <input type="text" name="eposta" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Şifre:</label><br>
+                                <input type="password" name="sifre" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">İl</label>
+                                @Html.DropDownList("iller", (IEnumerable<SelectListItem>)ViewBag.iller, "Şehir Seçiniz  ", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">İlçe</label>
+                                @Html.DropDownList("ilceID", new SelectList(string.Empty, "Value", "Text"), "İlçe Seçiniz", new { @class = "form-control", @Id = "id" })
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Cinsiyet:</label><br>
+                                @Html.DropDownListFor(m => m.cinsiyet, (List<SelectListItem>)ViewBag.cinsiyet, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Telefon:</label><br>
+                                <input type="text" name="telefon" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Adres:</label><br>
+                                <input type="text" name="adres" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Resim</label>
+                                <input type="file" class="form-control" id="exampleInputEmail1" name="resim2">
+                            </div>
+                            <div style="text-align:right" class="form-group">
+                                <button type="submit" class="btn btn-info btn-md">KAYDOL</button>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+
